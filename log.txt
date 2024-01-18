@@ -1,0 +1,22 @@
+Made a good effor but now i have to make a method to convert city into 
+coordinates for api to use.
+
+im not sure why but return doesnt out put the text i had to use print
+ will investigate later.
+
+ i also need to find a way to hide credentials
+
+ have to use source venv/Scripts/activate not sure why
+
+ now i have to figure out how to return the lat and log, from geonames...ugh so i can plug it to
+ the weather api
+
+ can quite figure out whats happening with geopy,geocoder and geonames, so i decided to 
+ just use a url to search for the info and get the lat and log from that
+
+ managed to get geopy to work with geoname, turns out its the same as using the url
+ call its just more compact. also figured out how to get the location, it just
+ needs the country code instead of the whole name. for now ill just do city and country
+
+
+ works ok so far just gotta allow for user input and connect to html 

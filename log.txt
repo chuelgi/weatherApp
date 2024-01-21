@@ -41,3 +41,6 @@ im not sure why but return doesnt out put the text i had to use print
 
  turns out it was a flask configuration issue this solved it: 
  app = Flask(__name__, static_folder='static') and in html <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+there was an error where heroku didnt detect the proctofile, turns out
+it was because there wasnt space after web

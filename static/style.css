@@ -1,0 +1,35 @@
+body {
+    background-color: #33186b;
+    color: #c499f3;
+}
+
+.form-control {
+    color: #000000;
+    background-color: #c499f3;
+}
+
+.btn {
+    background-color: #c499f3;
+    margin-top: 50px;
+    color: #33186b;
+    border: #F2AFEF;
+}
+
+.btn:hover {
+    background-color:#F2AFEF;
+    color:  #33186b;
+}
+
+.btn:active {
+    background-color:#F2AFEF;
+
+    color:  #33186b;
+}
+
+.btn:focus, .btn:active {
+    box-shadow: 0 0 0 0.2rem #F2AFEF;
+}
+
+.card{
+    background-color: #7360df;
+}

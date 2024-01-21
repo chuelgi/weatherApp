@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 from geopy.geocoders import GeoNames
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 load_dotenv()
 
@@ -28,7 +28,8 @@ def get_coordinates(city):
     if location:
         lat = location.latitude
         log = location.longitude
-        return lat, log
+        address = location.address
+        return lat, log, address
     else:
         print("Location not found.")
         return None
@@ -36,10 +37,13 @@ def get_coordinates(city):
 def get_weather(city):
     base_url = 'https://api.meteomatics.com/'
     thetime = get_current_time()
-    coords = get_coordinates(city)
+
+    #get city coordinates
+    location = get_coordinates(city)
+
     
-    if coords:
-        lat, log = coords
+    if location:
+        lat, log, address = location
         auth = (meteomatics_username, meteomatics_password)
         print(f"API Request URL: {base_url}{thetime}/t_2m:F/{lat},{log}/json")
         
@@ -58,7 +62,7 @@ def get_weather(city):
 
         if 'data' in data and data['data']:
             temperature = data['data'][0]['coordinates'][0]['dates'][0]['value']
-            return f"{temperature}°F."
+            return {'temperature': temperature, 'address':address}
         else:
             return f"Could not find temperature information in the API response for {city}."
     else:
@@ -68,9 +72,9 @@ def get_weather(city):
 def home():
     result = None
     if request.method == 'POST':
-        city = request.form['city']
-        result = get_weather(city)
-        return render_template('result.html', result=result, city=city)
+        location = request.form['city'] 
+        result = get_weather(location)
+        return render_template('result.html', result=result, city=location)
     return render_template('index.html', result=result)
 
 if __name__ == '__main__':

@@ -1,3 +1,6 @@
+
+Quick thoughts will organize later: 
+
 Made a good effor but now i have to make a method to convert city into 
 coordinates for api to use.
 
@@ -8,10 +11,10 @@ im not sure why but return doesnt out put the text i had to use print
 
  have to use source venv/Scripts/activate not sure why
 
- now i have to figure out how to return the lat and log, from geonames...ugh so i can plug it to
+ now i have to figure out how to return the lat and log, from geonames... so i can plug it to
  the weather api
 
- can quite figure out whats happening with geopy,geocoder and geonames, so i decided to 
+ cant quite figure out whats happening with geopy,geocoder and geonames, so i decided to 
  just use a url to search for the info and get the lat and log from that
 
  managed to get geopy to work with geoname, turns out its the same as using the url
@@ -20,3 +23,21 @@ im not sure why but return doesnt out put the text i had to use print
 
 
  works ok so far just gotta allow for user input and connect to html 
+
+ learning to be more careful with sensitive info using .env
+
+ the getweather function now returns both the temp and the correctly 
+ formatted location so i can display it nicely. this is done by returing a 
+ dictionary so that i can display the information in the right area of my
+ html page.
+
+
+ for some reason it says that i hit the limit.
+ now it works.
+
+
+ the style css isnt being found in the virual enviornment but when i use
+ live server it works.
+
+ turns out it was a flask configuration issue this solved it: 
+ app = Flask(__name__, static_folder='static') and in html <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">

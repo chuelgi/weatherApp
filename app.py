@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,flash,redirect, url_for
 import requests
 from datetime import datetime
 import json
@@ -7,7 +7,7 @@ import os
 from geopy.geocoders import GeoNames
 
 app = Flask(__name__, static_folder='static')
-
+app.secret_key = 'your_secret_key'
 load_dotenv()
 
 meteomatics_username = os.getenv("METEOMATICS_USERNAME")
@@ -35,12 +35,14 @@ def get_coordinates(city):
         return None
 
 def get_weather(city):
+
     base_url = 'https://api.meteomatics.com/'
     thetime = get_current_time()
 
     #get city coordinates
     location = get_coordinates(city)
-
+    if location is None:
+        return None
     
     if location:
         lat, log, address = location
@@ -72,8 +74,14 @@ def get_weather(city):
 def home():
     result = None
     if request.method == 'POST':
-        location = request.form['city'] 
+        city = request.form['city']
+
+        state = request.form.get('state', '') 
+        country = request.form.get('country', '')  
+        location = f"{city} {state} {country}".strip()  
         result = get_weather(location)
+        if result is None:
+            return render_template('index.html', result=result, alert_message="City not found. Please check your input.")            
         return render_template('result.html', result=result, city=location)
     return render_template('index.html', result=result)
 

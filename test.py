@@ -9,7 +9,7 @@ load_dotenv()
 geolocator = GeoNames(username=os.getenv("GEONAMES_USER"))
 
 # Specify the place (city name)
-place = "toledo usa"
+place = "f45tgysdua"
 
 # Use geocode method to get location information
 location = geolocator.geocode(place)

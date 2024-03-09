@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+from datetime import datetime,date
 import json
 from dotenv import load_dotenv
 import os
@@ -13,33 +13,49 @@ meteomatics_password = os.getenv("METEOMATICS_PASSWORD")
 geolocator = GeoNames(username=os.getenv("GEONAMES_USER"))
 
 base_url = 'https://api.meteomatics.com/'
-#thetime = get_current_time()
+#time and day
+today = date.today()
+time = datetime.now()
+time = time.strftime("%H:%M:%S")
 
 auth = (meteomatics_username, meteomatics_password)
     
-response = requests.get(f'{base_url}2024-03-02T00:00:00ZP8D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json', auth=auth)
+response = requests.get(f'{base_url}{today}T{time}ZP7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json', auth=auth)
+re = response.json()
 
-# Check if the request was successful
-if response.status_code == 200:
-    # Parse the JSON response
-    data = response.json()
+'''
+print(time)
 
-print(data)
+#get the days and the corresponding weather information
 
-daily_temperatures = {}
-for entry in data['data']:
-    parameter = entry['parameter']
-    for coordinate in entry['coordinates']:
-        for date_entry in coordinate['dates']:
-            date = date_entry['date'][:10]  # Extract date portion (YYYY-MM-DD)
-            temperature = date_entry['value']
-            if date not in daily_temperatures:
-                daily_temperatures[date] = {}
-            if parameter == 't_min_2m_24h:F':
-                daily_temperatures[date]['low'] = temperature
-            elif parameter == 't_max_2m_24h:F':
-                daily_temperatures[date]['high'] = temperature
+#weather icon
+day1 = re['data'][0]['coordinates'][0]['dates'][0]['value']
+print(day1);
 
-# Print the extracted daily high and low temperatures
-for date, temperatures in daily_temperatures.items():
-    print(f'Date: {date}, High: {temperatures["high"]}, Low: {temperatures["low"]}')
+#all days
+for x in range(9):
+    #day 1 returns night icon(data was recorded at night)
+    #weather icon
+    icon = re['data'][0]['coordinates'][0]['dates'][x]['value']
+    #low temp
+    min =  data = re['data'][1]['coordinates'][0]['dates'][x]['value']
+    #high temp
+    max =  data = re['data'][2]['coordinates'][0]['dates'][x]['value']
+
+    print("Day "+ str(x +1)+": "+ str(icon) + " "+ str(min)+ " "+str(max) )
+
+'''
+
+#dictionary
+
+weekly_weather = {}
+
+for x in range(8):
+    day_data = {
+        'icon': re['data'][0]['coordinates'][0]['dates'][x]['value'],
+        'min': re['data'][1]['coordinates'][0]['dates'][x]['value'],
+        'max': re['data'][2]['coordinates'][0]['dates'][x]['value']
+    }
+    weekly_weather[f'Day {x + 1}'] = day_data
+
+print(weekly_weather)

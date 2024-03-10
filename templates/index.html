@@ -7,13 +7,16 @@
     
     <!--bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+    <!--open server-->
     <link rel="stylesheet" href="/weatherApp/static/style.css">
+    <!-- venv-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <iframe id="mainiframe" src="" frameborder="10"></iframe>
+            <div class="col-md-6" style="padding-left: 28%;">
+                <iframe id="mainiframe" src="" frameborder="0"></iframe>
             </div>
          </div>
         <form action="/" method="post">
@@ -33,7 +36,7 @@
             </div>
             <div class="row">
                 <div class="col text-center">
-                    <button type="submit" class="btn" style="margin-top: 20%;">Check</button>
+                    <button type="submit" class="btn" style="margin-top: 2%;">Check</button>
                 </div>
             </div>
             
@@ -52,6 +55,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--theme-->
     <script src="/weatherApp/static/script.js"></script>
+    <!--venv-->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>

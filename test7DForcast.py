@@ -20,11 +20,14 @@ time = time.strftime("%H:%M:%S")
 
 auth = (meteomatics_username, meteomatics_password)
     
-response = requests.get(f'{base_url}{today}T{time}ZP7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json', auth=auth)
+response = requests.get(f'{base_url}{today}T22:00:00ZP7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json', auth=auth)
 re = response.json()
-
+print(time)
 '''
 print(time)
+print(today)
+
+
 
 #get the days and the corresponding weather information
 
@@ -44,6 +47,7 @@ for x in range(9):
 
     print("Day "+ str(x +1)+": "+ str(icon) + " "+ str(min)+ " "+str(max) )
 
+print(re)
 '''
 
 #dictionary

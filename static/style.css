@@ -4,6 +4,20 @@ body{
     background-color: #3498db;
 }
 
+ .card{
+    border-color: white;
+    color: white;
+    height: 200px;
+    width: 200px;
+    background-color: #3498db;
+
+}
+
+#today{
+    color: white;
+    margin-top: 50px;
+}
+
 /*spline*/
 #mainiframe{
     height: 500px;
@@ -16,4 +30,13 @@ body{
 .night{
     background-color: #000000;
     color: white;
+}
+
+.night .card{
+    border-color: white;
+    color: white;
+    background-color: black;
+    height: 250px;
+    width: 250px;
+
 }

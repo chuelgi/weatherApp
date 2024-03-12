@@ -1,5 +1,3 @@
-<!-- result.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,45 +13,43 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container" >
-    <div class="row">
-        <div class="col">
-            <h2>Today's Weather</h2>
-            <div class="weather-info">
-                <p>Weather Icon: {{ today_data.icon }}</p>
-                <p>Min Temperature: {{ today_data.min }}</p>
-                <p>Max Temperature: {{ today_data.max }}</p>
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <!-- CURRENT DAY -->
+            <div class="col-md-4" id="today">
+                <h2 style="margin-top: 10%;">Today's Weather </h2>
+                <div class="weather-info">
+                    <p>Weather Icon: {{ today_data.icon }}</p>
+                    <p>Min Temperature: {{ today_data.min }}</p>
+                    <p>Max Temperature: {{ today_data.max }}</p>
+                </div>
             </div>
-        </div>
-    </div>
-      <div class="row">
-            <div class="col">
-                {% for day, day_data in weekly_weather.items() %}
-                <div class="card" style="height: 500px; color: green;">
-                    <div class="card-body">
-                        <h3 class="card-title" style="margin-top: 30px;" >Weather</h3>
-                        <p class="card-content">Weather Icon: {{ day_data['icon'] }}</p>
-                        <p class="card-content">Min Temperature: {{ day_data['min'] }}</p>
-                        <p class="card-content">Max Temperature: {{ day_data['max'] }}</p>
+       
+            <!-- 7 DAY FORECAST -->
+            <div class="col-md-8">
+                <div class="row">
+                    {% for day, day_data in weekly_weather.items() %}
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Weather for {{ day }}</h3>
+                                <p class="card-content">Weather Icon: {{ day_data['icon'] }}</p>
+                                <p class="card-content">{{ day_data['max'] }}/{{ day_data['min'] }}</p>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-        
-        <div class="row text-center">
-            <div class=" col">
-                <div class="btn " onclick="window.location.href = '/';">
-                    
-                    Enter another location
 
-                    
+        <div class="row text-center">
+            <div class="col">
+                <div class="btn" onclick="window.location.href = '/';">
+                    Enter another location
                 </div>
-                
             </div>
-            
         </div>
-        
     </div>
 
 

@@ -81,7 +81,7 @@ def get_weather(city):
                     'min': data['data'][1]['coordinates'][0]['dates'][x]['value'],
                     'max': data['data'][2]['coordinates'][0]['dates'][x]['value']
                 }
-                weekly_weather[f'Day {x + 1}'] = day_data
+                weekly_weather[f'Day {x}'] = day_data
             return today_data, weekly_weather
                 
         except json.JSONDecodeError as e:

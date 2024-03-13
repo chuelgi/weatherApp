@@ -20,9 +20,9 @@ time = time.strftime("%H:%M:%S")
 
 auth = (meteomatics_username, meteomatics_password)
     
-response = requests.get(f'{base_url}{today}T22:00:00ZP7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json', auth=auth)
+response = requests.get("https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current=temperature_2m&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=14")
 re = response.json()
-print(time)
+print(re)
 '''
 print(time)
 print(today)
@@ -51,14 +51,14 @@ print(re)
 '''
 
 #dictionary
-
+print (re['daily']['temperature_2m_max'][0])
 weekly_weather = {}
 
 for x in range(8):
     day_data = {
-        'icon': re['data'][0]['coordinates'][0]['dates'][x]['value'],
-        'min': re['data'][1]['coordinates'][0]['dates'][x]['value'],
-        'max': re['data'][2]['coordinates'][0]['dates'][x]['value']
+        
+        'min': re['daily']['temperature_2m_min'][0],
+        'max': re['daily']['temperature_2m_max'][0]
     }
     weekly_weather[f'Day {x + 1}'] = day_data
 

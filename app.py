@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,flash,redirect, url_for
+from flask import Flask, render_template, request
 import requests
 from datetime import datetime
 import json
@@ -10,8 +10,9 @@ app = Flask(__name__, static_folder='static')
 app.secret_key = 'your_secret_key'
 load_dotenv()
 
-meteomatics_username = os.getenv("METEOMATICS_USERNAME")
-meteomatics_password = os.getenv("METEOMATICS_PASSWORD")
+#meteomatics_username = os.getenv("METEOMATICS_USERNAME")
+
+#meteomatics_password = os.getenv("METEOMATICS_PASSWORD")
 
 geolocator = GeoNames(username=os.getenv("GEONAMES_USER"))
 
@@ -41,7 +42,7 @@ def get_coordinates(city):
 
 def get_weather(city):
 
-    base_url = 'https://api.meteomatics.com/'
+    base_url = 'https://api.open-meteo.com/v1/forecast?'
     thetime = get_current_time()
     print(thetime)
     #get city coordinates
@@ -49,14 +50,14 @@ def get_weather(city):
 
     if error_message:
         return f"Error: {error_message}"
+    print(log)
     
     if lat is not None and log is not None and address is not None:
 
         
-        auth = (meteomatics_username, meteomatics_password)
+        #auth = (meteomatics_username, meteomatics_password)
         
-        response = requests.get(f'{base_url}{thetime}P7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/{lat},{log}/json', auth=auth)
-        #print(f'{base_url}{thetime}P7D:PT24H/weather_symbol_1h:idx,t_min_2m_24h:F,t_max_2m_24h:F/42.3315509,-83.0466403/json')
+        response = requests.get(f'{base_url}latitude={lat}&longitude={log}&current=temperature_2m&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=14')
 
         if response.status_code != 200:
             return f"Could not fetch weather data for {city}. Status code: {response.status_code}"
@@ -66,9 +67,8 @@ def get_weather(city):
 
             #today info
             today_data = {
-                'icon':data['data'][0]['coordinates'][0]['dates'][0]['value'],
-                'min': data['data'][1]['coordinates'][0]['dates'][0]['value'],
-                'max': data['data'][2]['coordinates'][0]['dates'][0]['value']
+                'min': data['daily']['temperature_2m_min'][0],
+                'max': data['daily']['temperature_2m_max'][0]
 
             }
 
@@ -77,9 +77,8 @@ def get_weather(city):
 
             for x in range(1,8):
                 day_data = {
-                    'icon':data['data'][0]['coordinates'][0]['dates'][x]['value'],
-                    'min': data['data'][1]['coordinates'][0]['dates'][x]['value'],
-                    'max': data['data'][2]['coordinates'][0]['dates'][x]['value']
+                    'min': data['daily']['temperature_2m_min'][x],
+                    'max': data['daily']['temperature_2m_max'][x]
                 }
                 weekly_weather[f'Day {x}'] = day_data
             return today_data, weekly_weather

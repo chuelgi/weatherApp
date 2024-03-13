@@ -1,35 +1,42 @@
-body {
-    background-color: #33186b;
-    color: #c499f3;
+
+
+body{
+    background-color: #3498db;
 }
 
-.form-control {
-    color: #000000;
-    background-color: #c499f3;
+ .card{
+    border-color: white;
+    color: white;
+    height: 200px;
+    width: 200px;
+    background-color: #3498db;
+
 }
 
-.btn {
-    background-color: #c499f3;
+#today{
+    color: white;
     margin-top: 50px;
-    color: #33186b;
-    border: #F2AFEF;
 }
 
-.btn:hover {
-    background-color:#F2AFEF;
-    color:  #33186b;
+/*spline*/
+#mainiframe{
+    height: 500px;
+    width: 500px;
 }
 
-.btn:active {
-    background-color:#F2AFEF;
 
-    color:  #33186b;
+/*night theme*/
+
+.night{
+    background-color: #000000;
+    color: white;
 }
 
-.btn:focus, .btn:active {
-    box-shadow: 0 0 0 0.2rem #F2AFEF;
-}
+.night .card{
+    border-color: white;
+    color: white;
+    background-color: black;
+    height: 250px;
+    width: 250px;
 
-.card{
-    background-color: #7360df;
 }
